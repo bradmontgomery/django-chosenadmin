@@ -30,14 +30,25 @@ class ChosenAdminMiddleware(object):
             css = css.replace(sprite, settings.STATIC_URL + "img/" + sprite)
         return css
 
+    def _chosen_js(self, minified=True):
+        """Read the minified jquery plugin file."""
+        file = "chosen.jquery.min.js" if minified else "chosen.jquery.js"
+        path = "chosenadmin/js/{0}".format(file)
+        return render_to_string(path, {})
+
     def process_template_response(self, request, response):
+        """Embed Chosen.js directly in html of the response."""
 
         if self._match(request, response):
-
             # Render the <link> and the <script> tags to include Chosen.
-            context = {"minified_css": self._minified_css()}
-            head = render_to_string("chosenadmin/_head_css.html", context)
-            body = render_to_string("chosenadmin/_script.html", context)
+            head = render_to_string(
+                "chosenadmin/_head_css.html",
+                {"minified_css": self._minified_css()}
+            )
+            body = render_to_string(
+                "chosenadmin/_script.html",
+                {"chosen_js": self._chosen_js(minified=False)}
+            )
 
             # Re-write the Response's content to include our new html
             content = response.rendered_content
