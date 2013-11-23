@@ -22,10 +22,12 @@ class ChosenAdminMiddleware(object):
         not_included = self.include_flag not in response.rendered_content
         return correct_path and not_included
 
-    def _minified_css(self):
+    def _chosen_css(self, minified=True):
         """Read the minified CSS file including STATIC_URL in the references
         to the sprite images."""
-        css = render_to_string("chosenadmin/css/chosen.min.css", {})
+        file = "chosen.min.css" if minified else "chosen.css"
+        path = "chosenadmin/css/{0}".format(file)
+        css = render_to_string(path, {})
         for sprite in ['chosen-sprite.png', 'chosen-sprite@2x.png']:
             css = css.replace(sprite, settings.STATIC_URL + "img/" + sprite)
         return css
@@ -43,7 +45,7 @@ class ChosenAdminMiddleware(object):
             # Render the <link> and the <script> tags to include Chosen.
             head = render_to_string(
                 "chosenadmin/_head_css.html",
-                {"minified_css": self._minified_css()}
+                {"minified_css": self._chosen_css(minified=True)}
             )
             body = render_to_string(
                 "chosenadmin/_script.html",
