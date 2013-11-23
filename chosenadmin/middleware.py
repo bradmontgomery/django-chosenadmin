@@ -9,7 +9,15 @@ PATH_MATCHER = compile(r"^/admin/\w+")
 
 class ChosenAdminMiddleware(object):
 
-    include_flag = "<!-- CHOSEN INCLUDED -->"
+    def __init__(self, *args, **kwargs):
+
+        self.include_flag = getattr(
+            settings,
+            'CHOSENADMIN_INCLUDE_FLAG',
+            "<!-- CHOSEN INCLUDED -->"
+        )
+        self.minified_css = getattr(settings, 'CHOSENADMIN_MIN_CSS', True)
+        self.minified_js = getattr(settings, 'CHOSENADMIN_MIN_JS', True)
 
     def _match(self, request, response):
         """Match all requests/responses that satisfy the following conditions:
@@ -45,11 +53,11 @@ class ChosenAdminMiddleware(object):
             # Render the <link> and the <script> tags to include Chosen.
             head = render_to_string(
                 "chosenadmin/_head_css.html",
-                {"minified_css": self._chosen_css(minified=True)}
+                {"minified_css": self._chosen_css(minified=self.minified_css)}
             )
             body = render_to_string(
                 "chosenadmin/_script.html",
-                {"chosen_js": self._chosen_js(minified=False)}
+                {"chosen_js": self._chosen_js(minified=self.minified_js)}
             )
 
             # Re-write the Response's content to include our new html

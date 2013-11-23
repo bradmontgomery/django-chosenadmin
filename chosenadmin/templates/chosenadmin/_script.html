@@ -11,7 +11,8 @@ closing </body> tag.
 {% endcomment %}
 
 <script type="text/javascript">
-var $ = jQuery ? jQuery : django.jQuery;  // grab a reference to jQuery
+jQuery = jQuery ? jQuery : django.jQuery;
+var $ = jQuery ? jQuery : django.jQuery;
 {{ chosen_js }}
 
 {# ------ Selector to replace <select> elements with chosen ------ #}
