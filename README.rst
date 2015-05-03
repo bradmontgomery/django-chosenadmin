@@ -12,7 +12,7 @@ This app is kind of a hack. It uses middleware to rewrite the Response content,
 adding in CSS and JavaScript where appropriate. This may or may not break
 anything else you've got.
 
-This is based on Chosen v1.0.0 and only supports jQuery.
+This is based on Chosen v1.4.2 and only supports jQuery.
 
 
 Setup
