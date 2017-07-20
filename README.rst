@@ -11,7 +11,7 @@ Setup
 1. Install with ``pip install django-chosenadmin``.
 2. Add ``chosenadmin`` to your ``INSTALLED_APPS``.
 3. Add ``'chosenadmin.middleware.ChosenAdminMiddleware'`` to the top of your
-   ``MIDDLEWARE_CLASSES``
+   ``MIDDLEWARE``
 
 
 About
