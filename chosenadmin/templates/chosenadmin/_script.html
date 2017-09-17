@@ -9,7 +9,6 @@ This all gets included inline at the bottom of the page, right before the
 closing </body> tag.
 
 {% endcomment %}
-
 <script type="text/javascript">
 jQuery = jQuery ? jQuery : django.jQuery;
 var $ = jQuery ? jQuery : django.jQuery;
@@ -17,18 +16,13 @@ var $ = jQuery ? jQuery : django.jQuery;
 
 {# ------ Selector to replace <select> elements with chosen ------ #}
 $(document).ready(function() {
-  // Ugh. Make sure django admin's custom multi-select widget loads, then
-  // ignore it.
-  setTimeout(function(){
-    $("select").not(".filtered").chosen();
-  }, 500);
-
-  // Tweak the CSS for any parent of a Chosen widget.
-  setTimeout(function() {
-    $(".chosen-container").parents(".form-row").css({
-      "position": "relative",
-      "overflow": "visible"
-    });
-  }, 1000);
+  var chosenOptions = {width: "300px"};
+  // If the underlying <select> is updated, re-render chosen.
+  $(".form-row select").change(function(e) {
+    $(this).chosen('destroy').chosen(chosenOptions);
+  });
+  // Initial chosen setup.
+  $(".form-row select").chosen(chosenOptions);
 });
-</script></body>
+</script>
+</body> {# NOTE: we replace the existing `</body>` with this template's content #}
