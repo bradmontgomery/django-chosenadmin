@@ -24,5 +24,5 @@ anything else you've got.
 However, it's pretty easy to install, and once installed, you don't have to
 do anything special in the admin to see it work.
 
-This is based on Chosen v1.6.2 and only supports jQuery. Works with Django
-1.10+ (new-style middleware) with python 3.6.
+This is based on Chosen v1.8.2 and only supports jQuery. Last tested with Django
+1.11 (it uses new-style middleware) with python 3.6.
