@@ -9,7 +9,8 @@ PATH_MATCHER = compile(r"^/admin/\w+")
 
 class ChosenAdminMiddleware(object):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, get_response):
+        self.get_response = get_response
 
         self.include_flag = getattr(
             settings,
@@ -18,6 +19,10 @@ class ChosenAdminMiddleware(object):
         )
         self.minified_css = getattr(settings, 'CHOSENADMIN_MIN_CSS', True)
         self.minified_js = getattr(settings, 'CHOSENADMIN_MIN_JS', True)
+
+    def __call__(self, request):
+        response = self.get_response(request)
+        return self.process_template_response(request, response)
 
     def _match(self, request, response):
         """Match all requests/responses that satisfy the following conditions:
