@@ -1,1 +1,2 @@
-include chosenadmin/**/*
+recursive-include chosenadmin/static *
+recursive-include chosenadmin/templates *

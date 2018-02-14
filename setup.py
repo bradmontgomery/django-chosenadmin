@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 from chosenadmin import __version__
 
 
@@ -14,11 +14,7 @@ setup(
     license="MIT",
     keywords="django chosen admin",
     url=url,
-    packages=[
-        "chosenadmin",
-    ],
-    include_package_data=True,
-    package_data={'': ['**/*.*']},
+    packages=find_packages(),
     long_description="Adds the Chosen.js plugin to Select and Multi-select elements in Django's admin.",
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -35,4 +31,5 @@ setup(
         'Framework :: Django',
         "Topic :: Utilities",
     ],
+    include_package_data=True,
 )
