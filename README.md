@@ -1,3 +1,10 @@
+# ⚠⚠️ This project is unmaintained
+
+`chosen` was great for it's time, but that time has passed. Therefore this project is no longer maintained.
+
+----
+
+
 django-chosenadmin
 ==================
 
